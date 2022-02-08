@@ -71,7 +71,7 @@ const tag = {
     },
     Mongodb_realtime_connections: {
         value: 18,
-        threshold: 2500
+        threshold:[350, 56355]
     },
     Mysql_global_status_threads_connected: {
         value: 19,
@@ -99,7 +99,7 @@ const tag = {
     },
     rabbitmq_node_up: {
         value: 25,
-        threshold: [0.5, 6]
+        threshold: [6, 0.5]
     },
     subscriptions_max: {
         value: 26,
@@ -122,4 +122,4 @@ const errorValueLog = {
 }
 
 
-module.exports = { tag, errorValueLog }
+module.exports = { tag,errorValueLog }
