@@ -25,8 +25,6 @@ class LogController {
                             errorLog.evalMatches.forEach(el => {
                                 var min = Math.min.apply(Math, [errorInfo.threshold[0], errorInfo.threshold[1]]),
                                     max = Math.max.apply(Math, [errorInfo.threshold[0], errorInfo.threshold[1]]);
-                                console.log(errorInfo.threshold);
-                                console.log({ min, max });
 
                                 if (el.value > min && el.value < max) {
                                     return saveLog(el, errorLog, errorName, res)
@@ -82,10 +80,10 @@ function saveLog(el, errorLog, errorName, res) {
     let errorValue = variableConst.errorValueLog;
     errorValue = Object.assign(errorValue, errorLog)
     errorValue.evalMatches = el;
+    console.log('errorValue', errorValue);
     const log = new Log(errorValue);
+    sendEmail(errorValue, errorName);
     log.save().then(() => {
-
-        sendEmail(errorValue, errorName);
         res.json({
             status: 200,
             message: 'Cập nhật log thành thành công'
@@ -95,6 +93,8 @@ function saveLog(el, errorLog, errorName, res) {
 }
 
 function sendEmail(errorLog, errorName) {
+
+
     var transporter = nodemailer.createTransport({ // config mail server
         service: 'gmail',
         auth: {
